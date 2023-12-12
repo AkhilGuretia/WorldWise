@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import styles from "./City.module.css";
 import Spinner from "./Spinner";
 
@@ -14,6 +14,11 @@ const formatDate = (date) =>
 function City({ cities, isLoading }) {
   // TEMP DATA
   const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+
   const currentCity = {
     cityName: "Lisbon",
     emoji: "🇵🇹",
@@ -57,8 +62,16 @@ function City({ cities, isLoading }) {
         </a>
       </div>
 
-      <div>
-        ID: <span>{id}</span>{" "}
+      <div className={styles.row}>
+        <h6>ID</h6>
+        <p>{id}</p>
+      </div>
+
+      <div className={styles.row}>
+        <h6>POSITION</h6>
+        <p>
+          {lat}, {lng}
+        </p>
       </div>
     </div>
   );
